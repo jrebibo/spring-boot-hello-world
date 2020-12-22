@@ -1,9 +1,10 @@
-# spring-boot-hello-world
+# spring-boot-hello-world @jrebibo
 
-Hello world application for Spring Boot. This is a test environment for Spring Boot RestController
+Hello world application for Spring Boot. This is a test environment for Spring Boot RestController :simple_smile:
 
-# to start the application:
+
+##### to start the application: 
 ./mvnw spring-boot:run
-# the application should log all the 'beans' provided by spring boot
-# use curl request to test the RestConrtoller
+_(the application should log all the 'beans' provided by spring boot)_
+##### use curl request to test the RestConrtoller:
 curl localhost:8080
