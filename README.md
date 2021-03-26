@@ -1,6 +1,6 @@
 # spring-boot-hello-world @jrebibo
 
-Hello world application for Spring Boot. This is a test environment for Spring Boot RestController :simple_smile:
+Hello world application for Spring Boot. This is a test environment for Spring Boot :simple_smile:
 
 
 ##### to start the application: 
