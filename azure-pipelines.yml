@@ -44,14 +44,14 @@ stages:
 - stage: security_scan
   displayName: Security Scan Stage
   jobs:
-    - job: static-application-security-testing
+    - job: static_application_security_testing
       displayName: SAST Scan Job
       steps:
         - script: |
             echo "Starting Static Application Scan... "
             echo "Finishing Static Application Scan... "
             echo "Your application is good to go (view scan results in the portal)."
-    - job: software-composition-analysis
+    - job: software_composition_analysis
       displayName: SCA Scan Job
       steps:
         - script: |
