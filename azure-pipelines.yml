@@ -48,13 +48,17 @@ stages:
       displayName: SAST Scan Job
       steps:
         - script: |
+            echo "**********************SAST**********************"
             echo "Starting Static Application Scan... "
             echo "Finishing Static Application Scan... "
             echo "Your application is good to go (view scan results in the portal)."
+            echo "************************************************"
     - job: software_composition_analysis
       displayName: SCA Scan Job
       steps:
         - script: |
+            echo "***********************SCA***********************"
             echo "Scanning your applications 3rd party dependencies... "
             echo "Finishing your SCA Scan... "
-            echo "1 High vulnerability detected: { "Blacklist" : false, "Component Filename" : "struts.jar", "Versions" : "1.2.4" }"
+            echo "1 High vulnerability detected: { "Blacklist" : false, "Component Filename" : "struts.jar", "Versions" : "1.2.4" } "
+            echo "*************************************************"
