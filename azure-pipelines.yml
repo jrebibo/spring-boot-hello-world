@@ -57,4 +57,4 @@ stages:
         - script: |
             echo "Scanning your applications 3rd party dependencies... "
             echo "Finishing your SCA Scan... "
-            echo "1 High vulnerability detected: { "Blacklist" : false, "Component Filename" : "struts.jar", "Versions" : "1.2.4" }
+            echo "1 High vulnerability detected: { "Blacklist" : false, "Component Filename" : "struts.jar", "Versions" : "1.2.4" }"
