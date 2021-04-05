@@ -10,30 +10,51 @@ pool:
   vmImage: ubuntu-latest
   
 stages:
-  - stage: Build
-    jobs:
-      - job: package_maven
-        displayName: Package Maven
-        steps:
-        - task: Maven@3
-          inputs:
-            mavenPomFile: 'pom.xml'
-            publishJUnitResults: true
-            testResultsFiles: '**/surefire-reports/TEST-*.xml'
-            javaHomeOption: 'JDKVersion'
-            mavenVersionOption: 'Default'
-            mavenAuthenticateFeed: false
-            effectivePomSkip: false
-            sonarQubeRunAnalysis: false
-        - task: CopyFiles@2
-          inputs:
-            Contents: 'target/*.jar'
-            TargetFolder: '$(Build.ArtifactStagingDirectory)'
-            CleanTargetFolder: true
-            OverWrite: true
-            retryCount: '1'
-        - task: PublishBuildArtifacts@1
-          inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-            ArtifactName: 'spring-mvn-jar'
-            publishLocation: 'Container'
+- stage: build-and-publish
+  displayName: Build and Publish
+  jobs:
+    - job: package_maven
+      displayName: Package Maven
+      pool:
+        vmImage: ubuntu-latest
+      steps:
+      - task: Maven@3
+        inputs:
+          mavenPomFile: 'pom.xml'
+          publishJUnitResults: true
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          javaHomeOption: 'JDKVersion'
+          mavenVersionOption: 'Default'
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
+      - task: CopyFiles@2
+        inputs:
+          Contents: 'target/*.jar'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          CleanTargetFolder: true
+          OverWrite: true
+          retryCount: '1'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'spring-mvn-jar'
+          publishLocation: 'Container'
+
+- stage: security-scan
+  displayName: Security Scan Stage
+  jobs:
+    - job: static-application-security-testing
+      displayName: SAST Scan Job
+      steps:
+        - script: |
+            echo "Starting Static Application Scan... "
+            echo "Finishing Static Application Scan... "
+            echo "Your application is good to go (view scan results in the portal)."
+    - job: software-composition-analysis
+      displayName: SCA Scan Job
+      steps:
+        - script: |
+            echo "Scanning your applications 3rd party dependencies... "
+            echo "Finishing your SCA Scan... "
+            echo "1 High vulnerability detected: { "Blacklist" : false, "Component Filename" : "struts.jar", "Versions" : "1.2.4" }
