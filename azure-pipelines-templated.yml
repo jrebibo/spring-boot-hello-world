@@ -17,11 +17,11 @@ resources:
 
 stages:
 - template: stage-templates/maven-ubuntu-build-publish-stage.yml@azure-templates-repo
-  inputs:
-    stage_name: 'build_and_publish'
-    display_name: 'Build and Publish'
-    maven_version: 'Default'
-    artifact_name: 'mvn-jar-file'
+  # inputs:
+  #   stage_name: 'build_and_publish'
+  #   display_name: 'Build and Publish'
+  #   maven_version: 'Default'
+  #   artifact_name: 'mvn-jar-file'
 
 
 - stage: security_scan
