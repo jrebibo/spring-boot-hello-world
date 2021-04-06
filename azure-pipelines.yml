@@ -1,0 +1,41 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+resources:
+ repositories:
+   - repository: azure-templates-repo
+     type: git
+     name: jrebibo/azure-templateds 
+
+stages:
+- template: stage-templates/maven-ubuntu-build-publish-stage.yml@azure-templates-repo
+
+- stage: security_scan
+  displayName: Security Scan Stage
+  jobs:
+    - job: static_application_security_testing
+      displayName: SAST Scan Job
+      steps:
+        - script: |
+            echo "**********************SAST**********************"
+            echo "Starting Static Application Scan... "
+            echo "Finishing Static Application Scan... "
+            echo "Your application is good to go (view scan results in the portal)."
+            echo "************************************************"
+    - job: software_composition_analysis
+      displayName: SCA Scan Job
+      steps:
+        - script: |
+            echo "***********************SCA***********************"
+            echo "Scanning your applications 3rd party dependencies... "
+            echo "Finishing your SCA Scan... "
+            echo "1 High vulnerability detected: { "Blacklist" : false, "Component Filename" : "struts.jar", "Versions" : "1.2.4" } "
+            echo "*************************************************"
