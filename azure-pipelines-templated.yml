@@ -27,5 +27,5 @@ stages:
 - stage: security_scan
   displayName: Security Scan Stage
   jobs:
-    - template: job-templates/sast-scan-job.yml@azure-templates-repo
-    - template: job-templates/sca-scan-job.yml@azure-templates-repo
+  - template: job-templates/sast-scan-job.yml@azure-templates-repo
+  - template: job-templates/sca-scan-job.yml@azure-templates-repo
