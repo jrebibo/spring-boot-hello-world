@@ -9,38 +9,21 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+resources:
+ repositories:
+   - repository: azure-templates-repo
+     type: git
+     name: jrebibo/azure-templates 
 
 stages:
-- stage: 'build_and_publish'
-  displayName: 'Build and Publish'
-  jobs:
-    - job: package_maven
-      displayName: Package Maven
-      pool:
-        vmImage: ubuntu-latest
-      steps:
-      - task: Maven@3
-        inputs:
-          mavenPomFile: 'pom.xml'
-          publishJUnitResults: true
-          testResultsFiles: '**/surefire-reports/TEST-*.xml'
-          javaHomeOption: 'JDKVersion'
-          mavenVersionOption: 'Default'
-          mavenAuthenticateFeed: false
-          effectivePomSkip: false
-          sonarQubeRunAnalysis: false
-      - task: CopyFiles@2
-        inputs:
-          Contents: 'target/*.jar'
-          TargetFolder: '$(Build.ArtifactStagingDirectory)'
-          CleanTargetFolder: true
-          OverWrite: true
-          retryCount: '1'
-      - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-          ArtifactName: 'mvn-jar-file'
-          publishLocation: 'Container'
+- template: stage-templates/maven-ubuntu-build-publish-stage.yml@azure-templates-repo
+  inputs:
+    stage_name: 'build_and_publish'
+    display_name: 'Build and Publish'
+    maven_version: 'Default'
+    artifact_name: 'mvn-jar-file'
+
+
 - stage: security_scan
   displayName: Security Scan Stage
   jobs:
