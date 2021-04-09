@@ -17,9 +17,9 @@ resources:
 
 stages:
 - template: stage-templates/maven-ubuntu-build-publish-stage.yml@azure-templates-repo
-  paramaters:
-    stage_name: 'build_and_publish'
-    display_name: 'Build and Publish'
+  parameters:
+    stage_name: 'maven_build_and_publish'
+    display_name: 'Maven Build and Publish'
     maven_version: 'Default'
     artifact_name: 'mvn-jar-file'
 
