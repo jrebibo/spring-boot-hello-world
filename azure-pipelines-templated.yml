@@ -28,4 +28,15 @@ stages:
   displayName: Security Scan Stage
   jobs:
   - template: job-templates/sast-scan-job.yml@azure-templates-repo
+    parameters:
+      job_name: 'static_application_security_testing'
+      display_name: 'SAST Scan Job'
+      scan_initiator: 'Azure Pipeline - spring-boot-hello-world-templated'
+      application_name: 'jrebibo/spring-boot-hello-world'
+
   - template: job-templates/sca-scan-job.yml@azure-templates-repo
+    parameters:
+      job_name: 'software_composition_analysis'
+      display_name: 'SCA Scan Job'
+      scan_initiator: 'Azure Pipeline - spring-boot-hello-world-templated'
+      application_name: 'jrebibo/spring-boot-hello-world'
